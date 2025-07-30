@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧠 Vault
 
-## Getting Started
+**Vault** is a self-hosted React-based frontend for chatting with LLMs, including Google's Gemini API and local LLM endpoints. It serves as a unified interface for interacting with your own [RagTimeAPI](https://github.com/AliBenrami/RagTimeAPI) and other tools — all from your browser.
 
-First, run the development server:
+> 🔐 REST API and frontend are local. Only the LLM (Gemini) may connect to external APIs unless you self-host.
+
+---
+
+## 🚀 Features
+
+- 🌐 Chat UI for communicating with local or remote LLMs
+- 🔍 Context-aware Q&A with integrated [RagTimeAPI](https://github.com/AliBenrami/RagTimeAPI)
+- 🧠 Gemini API support
+- ⚙️ Configurable endpoints via `.env`
+- 🧪 Demo version in the works
+
+---
+
+## 🧑‍💻 Getting Started
+
+### Prerequisites
+
+- Node.js ≥ 18
+- A running instance of:
+  - [`RagTimeAPI`](https://github.com/AliBenrami/RagTimeAPI)
+  - Optionally: Ollama / LM Studio / Local LLM server
+
+### Installation
 
 ```bash
+git clone https://github.com/AliBenrami/vault.git
+cd vault
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Configuration
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Create a `.env.local` file:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```env
+VITE_RAGTIME_API_URL=http://localhost:8000
+VITE_GEMINI_API_KEY=your_gemini_api_key_here
+VITE_GEMINI_MODEL=gemini-pro
+VITE_LOCAL_LLM_URL=http://localhost:11434
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📡 API Integrations
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **🔗 RagTimeAPI**  
+  Self-hosted retrieval-augmented generation (RAG) backend.  
+  → [`github.com/AliBenrami/RagTimeAPI`](https://github.com/AliBenrami/RagTimeAPI)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **🧠 Gemini API**  
+  Used for chat, reasoning, and general LLM capabilities. Requires API key.  
+  → [gemini.google.com](https://gemini.google.com/)
 
-## Deploy on Vercel
+- **💻 Local LLMs (optional)**  
+  Support for calling models like `llama3`, `mistral`, etc. via local APIs
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🧪 Demo (Coming Soon)
+
+A hosted read-only demo of Vault will be made available. Stay tuned!
+
+---
+
+## 📷 Screenshots
+
+> (Add GIFs or images of UI once available)
+
+---
+
+## 🛠️ Roadmap
+
+- ✅ Gemini chat integration
+- ✅ RagTimeAPI context injection
+- 🔜 File/document upload for RAG
+- 🔜 Local LLM support toggle
+- 🔜 Agent support
+- 🔜 Demo site with example data
+- 🔜 User profiles & preferences (optional)
+
+---
+
+## 🤝 Contributing
+
+Not accepting PRs yet — but feel free to fork or create issues.
+
+---
+
+## 📄 License
+
+MIT
