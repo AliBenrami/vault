@@ -39,10 +39,7 @@ npm run dev
 Create a `.env.local` file:
 
 ```env
-VITE_RAGTIME_API_URL=http://localhost:8000
-VITE_GEMINI_API_KEY=your_gemini_api_key_here
-VITE_GEMINI_MODEL=gemini-pro
-VITE_LOCAL_LLM_URL=http://localhost:11434
+
 ```
 
 ---
