@@ -4,8 +4,13 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
+interface alertInterface {
+  alert: string;
+  type: "success" | "error";
+}
+
 const Upload = () => {
-  const [error, setError] = useState<string | null>(null);
+  const [alertList, setAlertList] = useState<alertInterface[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -32,12 +37,18 @@ const Upload = () => {
       });
       const data = await response.json();
       if (response.ok) {
-        setError(null);
+        setAlertList([
+          ...alertList,
+          { alert: "File uploaded successfully", type: "success" },
+        ]);
       } else {
-        setError(data.error);
+        setAlertList([...alertList, { alert: data.error, type: "error" }]);
       }
     } catch (error) {
-      setError("An error occurred while uploading the file");
+      setAlertList([
+        ...alertList,
+        { alert: "An error occurred while uploading the file", type: "error" },
+      ]);
     }
     setIsUploading(false);
   };
@@ -55,6 +66,15 @@ const Upload = () => {
     uploadAnimation();
   }, [uploadAnimation]);
 
+  useEffect(() => {
+    if (alertList.length > 0) {
+      const interval = setInterval(() => {
+        setAlertList((prev) => prev.slice(1));
+      }, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [alertList]);
+
   return (
     <div className="flex flex-col gap-2 w-full h-full p-4 justify-center items-center">
       <Button
@@ -65,6 +85,7 @@ const Upload = () => {
         <UploadCloud />
         {isUploading ? frames[currentFrame] : "Upload"}
       </Button>
+      <h2 className="text-sm text-red-700">PDF only</h2>
       <input
         onChange={handleChange}
         multiple={false}
@@ -72,14 +93,21 @@ const Upload = () => {
         type="file"
         hidden
       />
-      <div className="fixed bottom-0 right-0 p-4">
-        {error && (
-          <Alert variant="destructive">
-            <AlertCircle className="w-4 h-4" />
-            <AlertTitle>Error</AlertTitle>
-            <AlertDescription>{error}</AlertDescription>
-          </Alert>
-        )}
+      <div className="fixed bottom-0 right-0 p-4 ">
+        {alertList.length > 0 &&
+          alertList.map((alert, index) => (
+            <Alert
+              variant={alert.type === "success" ? "success" : "destructive"}
+              key={index}
+              className="mb-2 hover:scale-105 transition-all duration-300"
+            >
+              <AlertCircle className="w-4 h-4" />
+              <AlertTitle>
+                {alert.type === "success" ? "Success" : "Error"}
+              </AlertTitle>
+              <AlertDescription>{alert.alert}</AlertDescription>
+            </Alert>
+          ))}
       </div>
     </div>
   );
